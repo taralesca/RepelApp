@@ -17,21 +17,19 @@
         app:tabGravity="fill"
         app:tabMode="fixed">
 
-        <!--
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_users"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/ic_users"
-            android:text="Users" />
+        <!--<com.google.android.material.tabs.TabItem-->
+            <!--android:id="@+id/tab_users"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:icon="@drawable/ic_users"-->
+            <!--android:text="Users" />-->
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_groups"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/ic_groups"
-            android:text="Groups" />
-           -->
+        <!--<com.google.android.material.tabs.TabItem-->
+            <!--android:id="@+id/tab_groups"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:icon="@drawable/ic_groups"-->
+            <!--android:text="Groups" />-->
 
     </com.google.android.material.tabs.TabLayout>
 
