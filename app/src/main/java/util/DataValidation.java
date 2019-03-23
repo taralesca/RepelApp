@@ -2,12 +2,12 @@ package util;
 
 import android.icu.util.Calendar;
 import android.icu.util.GregorianCalendar;
+import android.util.Patterns;
 import android.widget.DatePicker;
 
 public final class DataValidation {
     public static boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
     public static boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
