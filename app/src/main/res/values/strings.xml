@@ -27,7 +27,8 @@
     <string name="prompt_first_name">First Name</string>
     <string name="title_activity_register">Register</string>
     <string name="birth_date_picker">Pick your date of birth:</string>
-
+    <string name="error_invalid_first_name">This name is invalid</string>
+    <string name="error_check_box_unchecked">You must agree to the Terms and Conditions</string>
     <!--
     <string-array name="accounts">
         <item>Vasilica Farafrica</item>
