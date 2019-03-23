@@ -95,8 +95,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        Button mRegisterButton = (Button) findViewById(R.id.register_button);
+        mRegisterButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toRegisterActivity();
+            }
+        });
+
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    private void toRegisterActivity() {
+        Intent goToNextActivity = new Intent(getApplicationContext(), RegisterActivity.class);
+        startActivity(goToNextActivity);
     }
 
     private void populateAutoComplete() {
@@ -340,10 +353,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 // WARNING - This bypasses the login screen
                 // Consider changing this ASAP!
-                toNextActivity();
+                toMainActivity();
                 //finish();
             } else {
-                toNextActivity();
+                toMainActivity();
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
@@ -356,7 +369,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
 
-        protected void toNextActivity() {
+
+        void toMainActivity() {
             Intent goToNextActivity = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(goToNextActivity);
         }
