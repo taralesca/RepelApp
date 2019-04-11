@@ -1,142 +1,99 @@
 package com.valiant.repel;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import util.DataValidationHelper;
 
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
+
+    private FirebaseAuth firebaseAuth;
 
     private AutoCompleteTextView emailView;
     private AutoCompleteTextView firstNameView;
     private EditText passwordView;
-    private DatePicker birthDatePicker;
-    private CheckBox termsAndCondsBox;
-    private View progressView;
-    private View registerFormView;
-    private LoginActivity.UserLoginTask authTask = null;
+    private CheckBox termsAndConditionsBox;
+    private Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_register);
+        firebaseAuth = FirebaseAuth.getInstance();
 
-        // Set up the register form.
-        emailView = (AutoCompleteTextView) findViewById(R.id.email);
-        passwordView = (EditText) findViewById(R.id.register_password);
-        firstNameView = (AutoCompleteTextView) findViewById(R.id.first_name);
-        birthDatePicker = (DatePicker) findViewById(R.id.date_picker);
-        termsAndCondsBox = (CheckBox) findViewById(R.id.terms_and_conds_box);
+        getUIElements();
 
-        passwordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptRegister();
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        Button mRegisterButton = (Button) findViewById(R.id.register_button);
-        mRegisterButton.setOnClickListener(new View.OnClickListener() {
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clearErrorMessages();
                 attemptRegister();
             }
         });
-
-
-
-        registerFormView = findViewById(R.id.register_form);
-        progressView = findViewById(R.id.register_progress);
-
     }
 
-    private void attemptRegister() {
-        if (authTask != null) {
-            return;
-        }
+    private void createAccount(String email, String password) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, getOnCompleteListener());
+    }
 
-        // Reset errors.
+    private OnCompleteListener<AuthResult> getOnCompleteListener() {
+        return new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+//                     Sign in success, update UI with the signed-in user's information
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+//                            updateUI(user);
+                } else {
+//                     If sign in fails, display a message to the user.
+                    authFailedToast().show();
+//                            updateUI(null);
+                }
+            }
+        };
+    }
+
+    private void getUIElements() {
+        emailView = findViewById(R.id.email);
+        passwordView = findViewById(R.id.register_password);
+        firstNameView = findViewById(R.id.first_name);
+        termsAndConditionsBox = findViewById(R.id.terms_and_conds_box);
+        registerButton = findViewById(R.id.register_button);
+    }
+
+    private Toast authFailedToast() {
+        return Toast.makeText(RegisterActivity.this,
+                getString(R.string.auth_failed_toast),
+                Toast.LENGTH_SHORT);
+    }
+
+    private void clearErrorMessages() {
         emailView.setError(null);
         passwordView.setError(null);
         firstNameView.setError(null);
-        termsAndCondsBox.setError(null);
+        termsAndConditionsBox.setError(null);
+    }
 
-        // Store values at the time of the register attempt.
+    private void attemptRegister() {
+
         String email = emailView.getText().toString();
         String password = passwordView.getText().toString();
-        String firstName = firstNameView.getText().toString();
 
-        boolean cancel = false;
-        View focusView = null;
-
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !DataValidationHelper.isPasswordValid(password)) {
-            passwordView.setError(getString(R.string.error_invalid_password));
-            focusView = passwordView;
-            cancel = true;
-        }
-
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            emailView.setError(getString(R.string.error_field_required));
-            focusView = emailView;
-            cancel = true;
-        } else if (!DataValidationHelper.isEmailValid(email)) {
-            emailView.setError(getString(R.string.error_invalid_email));
-            focusView = emailView;
-            cancel = true;
-        }
-
-        // Check for a valid first name
-        if (TextUtils.isEmpty(firstName)) {
-            firstNameView.setError(getString(R.string.error_field_required));
-            focusView = firstNameView;
-            cancel = true;
-        } else if (!DataValidationHelper.isFirstNameValid(firstName)) {
-            emailView.setError(getString(R.string.error_invalid_first_name));
-            focusView = emailView;
-            cancel = true;
-        }
-
-        // Check for Terms & Conds agreement
-        if(!termsAndCondsBox.isChecked()){
-            termsAndCondsBox.setError(getString(R.string.error_check_box_unchecked));
-            focusView = termsAndCondsBox;
-            cancel = true;
-        }
-
-        // Check for valid age
-        if(!DataValidationHelper.isAgeValid(birthDatePicker)) {
-            focusView = birthDatePicker;
-            cancel = true;
-
-        }
-
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-//            showProgress(true);
-//            authTask = new LoginActivity.UserLoginTask(email, password);
-//            authTask.execute((Void) null);
-        }
+        createAccount(email, password);
     }
 
 }
