@@ -30,10 +30,10 @@
                 android:layout_marginTop="16dp">
 
                 <AutoCompleteTextView
-                    android:id="@+id/first_name"
+                    android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="@string/prompt_first_name" />
+                    android:hint="@string/prompt_username" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

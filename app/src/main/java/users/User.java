@@ -7,7 +7,7 @@ import util.Entity;
 public class User extends Entity {
 
     String username;
-    Integer userID;
+    String userID;
     String password;
     String mail;
     Integer privilege;
@@ -16,6 +16,14 @@ public class User extends Entity {
     List<Integer> votedAnswers;
     List<Integer> createdQuestions;
     List<Integer> starredQuestions;
+
+    public User(String username, String userID, String password, String mail, Integer privilege) {
+        this.username = username;
+        this.userID = userID;
+        this.password = password;
+        this.mail = mail;
+        this.privilege = privilege;
+    }
 
     public Boolean create() {
         /// TODO
