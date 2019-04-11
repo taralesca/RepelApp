@@ -1,6 +1,5 @@
 package com.valiant.repel;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -29,7 +28,7 @@ public class GroupsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener listener;
 
     public GroupsFragment() {
         // Required empty public constructor
@@ -71,8 +70,8 @@ public class GroupsFragment extends Fragment {
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+        if (listener != null) {
+            listener.onFragmentInteraction(uri);
         }
     }
 
@@ -81,7 +80,7 @@ public class GroupsFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+            listener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -92,7 +91,7 @@ public class GroupsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener = null;
     }
 
     /**
