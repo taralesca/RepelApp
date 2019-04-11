@@ -6,7 +6,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
-import util.DataValidation;
+import util.DataValidationHelper;
 
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !DataValidation.isPasswordValid(password)) {
+        if (!TextUtils.isEmpty(password) && !DataValidationHelper.isPasswordValid(password)) {
             passwordView.setError(getString(R.string.error_invalid_password));
             focusView = passwordView;
             cancel = true;
@@ -141,7 +141,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             emailView.setError(getString(R.string.error_field_required));
             focusView = emailView;
             cancel = true;
-        } else if (!DataValidation.isEmailValid(email)) {
+        } else if (!DataValidationHelper.isEmailValid(email)) {
             emailView.setError(getString(R.string.error_invalid_email));
             focusView = emailView;
             cancel = true;

@@ -5,7 +5,7 @@ import android.icu.util.GregorianCalendar;
 import android.util.Patterns;
 import android.widget.DatePicker;
 
-public final class DataValidation {
+public final class DataValidationHelper {
     public static boolean isEmailValid(String email) {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }

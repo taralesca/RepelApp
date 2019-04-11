@@ -23,6 +23,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
     <string name="terms_conditions">I agree to the Terms and Conditions.</string>
     <string name="prompt_first_name">First Name</string>
     <string name="title_activity_register">Register</string>

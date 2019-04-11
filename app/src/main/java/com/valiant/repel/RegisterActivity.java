@@ -1,7 +1,7 @@
 package com.valiant.repel;
 
 import androidx.appcompat.app.AppCompatActivity;
-import util.DataValidation;
+import util.DataValidationHelper;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -84,7 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !DataValidation.isPasswordValid(password)) {
+        if (!TextUtils.isEmpty(password) && !DataValidationHelper.isPasswordValid(password)) {
             passwordView.setError(getString(R.string.error_invalid_password));
             focusView = passwordView;
             cancel = true;
@@ -95,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
             emailView.setError(getString(R.string.error_field_required));
             focusView = emailView;
             cancel = true;
-        } else if (!DataValidation.isEmailValid(email)) {
+        } else if (!DataValidationHelper.isEmailValid(email)) {
             emailView.setError(getString(R.string.error_invalid_email));
             focusView = emailView;
             cancel = true;
@@ -106,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
             firstNameView.setError(getString(R.string.error_field_required));
             focusView = firstNameView;
             cancel = true;
-        } else if (!DataValidation.isFirstNameValid(firstName)) {
+        } else if (!DataValidationHelper.isFirstNameValid(firstName)) {
             emailView.setError(getString(R.string.error_invalid_first_name));
             focusView = emailView;
             cancel = true;
@@ -120,7 +120,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         // Check for valid age
-        if(!DataValidation.isAgeValid(birthDatePicker)) {
+        if(!DataValidationHelper.isAgeValid(birthDatePicker)) {
             focusView = birthDatePicker;
             cancel = true;
 

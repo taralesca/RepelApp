@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "205979712684",
+    "firebase_url": "https://repelapp.firebaseio.com",
+    "project_id": "repelapp",
+    "storage_bucket": "repelapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205979712684:android:49df1ae50bf48359",
+        "android_client_info": {
+          "package_name": "com.valiant.repel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205979712684-semn48o59biiufdik8epjcrtjskstar6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.valiant.repel",
+            "certificate_hash": "f8eeabc558da0946c2536ff36b0e076eb7fe658d"
+          }
+        },
+        {
+          "client_id": "205979712684-ubljhdn4mnlljvf6tejcbld71ns0mcms.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9tbP-a9zJ4ZcNfL_MbuIyCBG0sa4PmG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205979712684-ubljhdn4mnlljvf6tejcbld71ns0mcms.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
