@@ -89,13 +89,13 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FragmentTabAdapter adapter;
+        FragmentTabAdapter tabAdapter;
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        adapter = new FragmentTabAdapter(getSupportFragmentManager());
-        adapter.addFragment(new UsersFragment(), "Users");
-        adapter.addFragment(new GroupsFragment(), "Groups");
-        viewPager.setAdapter(adapter);
+        tabAdapter = new FragmentTabAdapter(getSupportFragmentManager());
+        tabAdapter.addFragment(new QuestionListFragment(), "questions");
+        tabAdapter.addFragment(new GroupsFragment(), "Groups");
+        viewPager.setAdapter(tabAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
     }
