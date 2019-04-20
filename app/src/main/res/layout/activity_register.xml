@@ -8,11 +8,11 @@
 
     <ProgressBar
         android:id="@+id/register_progress"
-        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
+        <!--style="?android:attr/progressBarStyleLarge"-->
     <ScrollView
         android:id="@+id/register_form"
         android:layout_width="match_parent"
@@ -85,12 +85,12 @@
 
             <Button
                 android:id="@+id/register_button"
-                style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_register"
                 android:textStyle="bold" />
+                <!--style="?android:textAppearanceSmall"-->
 
         </LinearLayout>
     </ScrollView>

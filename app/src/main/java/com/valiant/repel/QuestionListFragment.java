@@ -26,7 +26,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public  class QuestionListFragment extends Fragment {
+public abstract class QuestionListFragment extends Fragment {
     private static final String TAG = "QuestionListFragment";
 
     private FirebaseFirestore database;
@@ -61,9 +61,12 @@ public  class QuestionListFragment extends Fragment {
         recycler.setLayoutManager(manager);
 
         // Set up FirebaseRecyclerAdapter with the Query
+        /*
         Query questionsQuery = database
                 .collection("questions")
                 .orderBy("creationDate");
+        */
+        Query questionsQuery = getQuery(database);
 
         FirestoreRecyclerOptions<Question> options = new FirestoreRecyclerOptions.Builder<Question>()
                 .setQuery(questionsQuery, Question.class)
@@ -139,5 +142,5 @@ public  class QuestionListFragment extends Fragment {
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
-    //public Query getQuery(DatabaseReference databaseReference);
+    public abstract Query getQuery(FirebaseFirestore databaseReference);
 }

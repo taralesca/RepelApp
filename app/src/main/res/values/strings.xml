@@ -26,7 +26,7 @@
 
     <string name="terms_conditions">I agree to the Terms and Conditions.</string>
     <string name="prompt_username">Userame</string>
-    <string name="title_activity_register">Register</string>
+    <string name="title_activity_register">Create account</string>
     <string name="birth_date_picker">Pick your date of birth:</string>
     <string name="error_invalid_first_name">This name is invalid</string>
     <string name="error_check_box_unchecked">You must agree to the Terms and Conditions</string>

@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+/*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+*/
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -93,8 +94,8 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabAdapter = new FragmentTabAdapter(getSupportFragmentManager());
-        tabAdapter.addFragment(new QuestionListFragment(), "questions");
-        tabAdapter.addFragment(new GroupsFragment(), "Groups");
+        tabAdapter.addFragment(new RecentQuestionsFragment(), "Recent");
+        tabAdapter.addFragment(new TopQuestionsFragment(), "Top");
         viewPager.setAdapter(tabAdapter);
         tabLayout.setupWithViewPager(viewPager);
 

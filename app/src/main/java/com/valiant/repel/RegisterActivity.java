@@ -2,7 +2,6 @@ package com.valiant.repel;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import users.User;
 
 import android.os.Bundle;
 import android.util.Log;

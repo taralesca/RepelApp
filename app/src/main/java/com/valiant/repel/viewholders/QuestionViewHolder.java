@@ -25,6 +25,6 @@ public class QuestionViewHolder extends RecyclerView.ViewHolder{
     public void bindToPost(Question question, View.OnClickListener starClickListener) {
         authorView.setText(question.author);
         contentView.setText(question.content);
-        dateView.setText(question.creationDate.toString());
+        dateView.setText(question.creationDate.toDate().toString());
     }
 }
