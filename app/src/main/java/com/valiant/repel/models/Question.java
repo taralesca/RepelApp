@@ -10,6 +10,7 @@ import java.util.Map;
 @IgnoreExtraProperties
 public class Question {
 
+    public String uid;
     public String author;
     public String content;
     public Boolean anonimous;
@@ -18,7 +19,8 @@ public class Question {
 
     public Question() {}
 
-    public Question(String author, String content, Boolean anonimous, Timestamp creationDate, Timestamp modificationDate) {
+    public Question(String uid, String author, String content, Boolean anonimous, Timestamp creationDate, Timestamp modificationDate) {
+        this.uid = uid;
         this.author = author;
         this.content = content;
         this.anonimous = anonimous;
@@ -29,6 +31,7 @@ public class Question {
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
+        result.put("uid", uid);
         result.put("author", author);
         result.put("content", content);
         result.put("anonimous", anonimous);

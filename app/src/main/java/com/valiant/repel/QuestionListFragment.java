@@ -11,11 +11,13 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.firebase.ui.firestore.SnapshotParser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.valiant.repel.models.Question;
@@ -66,14 +68,13 @@ public abstract class QuestionListFragment extends Fragment {
                 .collection("questions")
                 .orderBy("creationDate");
         */
-        Query questionsQuery = getQuery(database);
+        final Query questionsQuery = getQuery(database);
 
         FirestoreRecyclerOptions<Question> options = new FirestoreRecyclerOptions.Builder<Question>()
                 .setQuery(questionsQuery, Question.class)
                 .build();
 
         adapter = new FirestoreRecyclerAdapter<Question, QuestionViewHolder>(options) {
-
             @Override
             public QuestionViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
                 LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
@@ -82,20 +83,20 @@ public abstract class QuestionListFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull QuestionViewHolder viewHolder, int position, @NonNull Question model) {
-                /*final FirebaseFirestore questionRef = database.getFirestore();
+//                final FirebaseFirestore questionRef = database.collection("questions").get(position);
 
                 // Set click listener for the whole post view
-                final String postKey = questionRef.g.getKey();
+                final String postKey = getSnapshots().getSnapshot(position).getReference().getId();
+                System.out.println(postKey);
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // Launch PostDetailActivity
                         Intent intent = new Intent(getActivity(), QuestionDetailActivity.class);
-                        intent.putExtra(QuestionDetailActivity.EXTRA_POST_KEY, postKey);
-
+                        intent.putExtra(QuestionDetailActivity.EXTRA_QUESTION_KEY, postKey);
                         startActivity(intent);
                     }
-                });*/
+                });
 
                 /*// Determine if the current user has liked this post and set UI accordingly
                 if (model.stars.containsKey(getUid())) {
