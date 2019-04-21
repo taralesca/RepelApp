@@ -1,6 +1,8 @@
 # Repel
 Social Android application, current version is unstable/under construction. 
 
+[![Kritika Analysis Status](https://kritika.io/users/taralesca/repos/5419969291736695/heads/development/status.svg)](https://kritika.io/users/taralesca/repos/5419969291736695/heads/development/)
+
 ## Project details
 * [User Stories](https://github.com/valianttech/RepelApp/projects/1)
 * [Code documentation](https://github.com/valianttech/RepelApp/wiki)
