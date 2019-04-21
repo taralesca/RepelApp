@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,9 +31,9 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseDatabase;
 
-    private AutoCompleteTextView emailView;
-    private AutoCompleteTextView usernameView;
-    private EditText passwordView;
+    private TextInputEditText emailView;
+    private TextInputEditText usernameView;
+    private TextInputEditText passwordView;
     private CheckBox termsAndConditionsBox;
     private Button registerButton;
 
