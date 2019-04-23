@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
 
     private TextInputEditText emailView;
     private TextInputEditText passwordView;
@@ -114,6 +115,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // TODO: Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            toMainActivity();
+        }
     }
 
 
