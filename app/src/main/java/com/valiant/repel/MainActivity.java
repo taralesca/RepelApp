@@ -1,5 +1,7 @@
 package com.valiant.repel;
 
+import android.content.ClipData;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,6 +21,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.Button;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -59,6 +65,9 @@ public class MainActivity extends AppCompatActivity
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
+
+
+
     }
 
     @Override
@@ -90,6 +99,8 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
+
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -98,6 +109,11 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        if(id == R.id.nav_profilesettings){
+            Intent intent = new Intent(MainActivity.this, UserProfile.class);
+            startActivity(intent);
+        }
 
         /*
         if (id == R.id.nav_camera) {
