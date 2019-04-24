@@ -3,10 +3,10 @@ package com.valiant.repel.viewholders;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.valiant.repel.R;
 import com.valiant.repel.models.Question;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 public class QuestionViewHolder extends RecyclerView.ViewHolder{
 
