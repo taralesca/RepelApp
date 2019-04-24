@@ -5,11 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,12 +19,11 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    FirebaseAuth.AuthStateListener mAuthListener;
 
     private TextInputEditText emailView;
     private TextInputEditText passwordView;
-    Button loginButton;
-    Button registerButton;
+    private Button loginButton;
+    private Button registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,19 +57,14 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-//                             Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
                             toMainActivity();
-//                            updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
                             authFailedToast().show();
-//                            updateUI(null);
                         }
 
-                        if (!task.isSuccessful()) {
-                            // TODO: Display login failure message
-                        }
+//                        if (!task.isSuccessful()) {
+                        // TODO: Display login failure message
+//                        }
                     }
                 });
     }
@@ -91,38 +82,32 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void attemptLogin() {
-        String email = emailView.getText().toString();
-        String password = passwordView.getText().toString();
+        final String email = emailView.getText().toString();
+        final String password = passwordView.getText().toString();
         signIn(email, password);
     }
 
     private Toast authFailedToast() {
-        return Toast.makeText(LoginActivity.this,
+        return Toast.makeText(this,
                 getString(R.string.auth_failed_toast),
                 Toast.LENGTH_SHORT);
     }
 
     private void toRegisterActivity() {
-        startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+        startActivity(new Intent(this, RegisterActivity.class));
     }
 
     private void toMainActivity() {
-        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
+        startActivity(new Intent(this, MainActivity.class));
     }
+
     @Override
     public void onStart() {
         super.onStart();
-        // TODO: Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
             toMainActivity();
         }
     }
-
-
-
-
-
 
 }
