@@ -2,7 +2,6 @@ package com.valiant.repel;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -25,7 +24,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class MainActivity extends AppCompatActivity
+public class MainAdminActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     String username;
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_admin);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -44,18 +43,18 @@ public class MainActivity extends AppCompatActivity
         documentReference
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document != null) {
-                        username = document.getString("username");
-                        TextView usernameTextView = (TextView) findViewById(R.id.usernameView);
-                        usernameTextView.setText(username);
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document != null) {
+                                username = document.getString("username");
+                                TextView usernameTextView = (TextView) findViewById(R.id.usernameView);
+                                usernameTextView.setText(username);
+                            }
+                        }
                     }
-                }
-            }
-        });
+                });
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

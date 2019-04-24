@@ -2,8 +2,10 @@ package com.valiant.repel;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -57,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            toMainActivity();
+                            toMainUserActivity();
                         } else {
                             authFailedToast().show();
                         }
@@ -97,16 +102,44 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(this, RegisterActivity.class));
     }
 
-    private void toMainActivity() {
-        startActivity(new Intent(this, MainActivity.class));
+    private void toMainUserActivity() {
+        startActivity(new Intent(this, MainUserActivity.class));
+    }
+
+    private void toMainAdminActivity() {
+        startActivity(new Intent(this, MainAdminActivity.class));
     }
 
     @Override
     public void onStart() {
         super.onStart();
         final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        // TODO: Clean up this mess:
         if (currentUser != null) {
-            toMainActivity();
+            FirebaseFirestore firebaseDatabase = FirebaseFirestore.getInstance();
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            DocumentReference documentReference = firebaseDatabase
+                    .collection("users")
+                    .document(user.getUid());
+            documentReference
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                           @Override
+                           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                               if (task.isSuccessful()) {
+                                   DocumentSnapshot document = task.getResult();
+                                   if (document != null) {
+                                       final String userClass = document.getString("class");
+                                       if (userClass != null && userClass.equals("admin")) {
+                                           toMainAdminActivity();
+                                       } else {
+                                           toMainUserActivity();
+                                       }
+                                   }
+                               }
+                           }
+                       });
+
         }
     }
 
