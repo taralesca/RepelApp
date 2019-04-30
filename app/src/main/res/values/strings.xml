@@ -14,7 +14,7 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>
-    <string name="action_register">Register</string>
+    <string name="action_register">REGISTER</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -32,6 +32,7 @@
     <string name="error_check_box_unchecked">You must agree to the Terms and Conditions</string>
     <string name="auth_failed_toast">Authentication failed.</string>
     <string name="title_activity_question_detail">QuestionDetailActivity</string>
+    <string name="font">\@font/MajorMonoDisplay-Regular</string>
     <!--
     <string-array name="accounts">
         <item>Vasilica Farafrica</item>
