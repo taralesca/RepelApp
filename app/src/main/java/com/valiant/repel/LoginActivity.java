@@ -62,8 +62,30 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            toMainUserActivity();
-                        } else {
+                            Log.d("MESAJ", "KARAMBA");
+                            FirebaseFirestore firebaseDatabase = FirebaseFirestore.getInstance();
+                            final FirebaseUser user = firebaseAuth.getCurrentUser();
+                            DocumentReference documentReference = firebaseDatabase
+                                    .collection("users")
+                                    .document(user.getUid());
+                            documentReference
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                DocumentSnapshot document = task.getResult();
+                                                if (document != null) {
+                                                    final String userClass = document.getString("class");
+                                                    if (userClass != null && userClass.equals("admin")) {
+                                                        toMainAdminActivity();
+                                                    } else {
+                                                        toMainUserActivity();
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });                        } else {
                             authFailedToast().show();
                         }
 
@@ -117,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
         // TODO: Clean up this mess:
         if (currentUser != null) {
             FirebaseFirestore firebaseDatabase = FirebaseFirestore.getInstance();
-            FirebaseUser user = firebaseAuth.getCurrentUser();
+            final FirebaseUser user = firebaseAuth.getCurrentUser();
             DocumentReference documentReference = firebaseDatabase
                     .collection("users")
                     .document(user.getUid());

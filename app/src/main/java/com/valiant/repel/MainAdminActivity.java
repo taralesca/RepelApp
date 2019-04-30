@@ -127,7 +127,9 @@ public class MainAdminActivity extends AppCompatActivity
     private void toLoginActivity() {
         startActivity(new Intent(this, LoginActivity.class));
     }
-
+    private void toPostQuestionActivity() {
+        startActivity(new Intent(this, PostQuestionActivity.class));
+    }
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -136,6 +138,8 @@ public class MainAdminActivity extends AppCompatActivity
         if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
             toLoginActivity();
+        } else if (id == R.id.nav_postquestion) {
+            toPostQuestionActivity();
         }
 
 
