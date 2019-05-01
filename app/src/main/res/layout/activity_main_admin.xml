@@ -12,6 +12,24 @@
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
+        <!--<androidx.appcompat.widget.Toolbar-->
+            <!--android:id="@+id/toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--android:background="?attr/colorPrimary"-->
+            <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->
+            <!--app:titleTextAppearance="@style/AppTheme.ActionBarText"/>-->
+        <!--<FrameLayout-->
+            <!--android:id="@+id/frame_container"-->
+            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--/>-->
+    <!--</LinearLayout>-->
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"

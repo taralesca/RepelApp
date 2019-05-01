@@ -24,9 +24,9 @@
         android:checkableBehavior="single"
         android:id="@+id/menu_bottom">
         <item
-            android:id="@+id/nav_profilesettings"
-            android:icon="@drawable/ic_profilesettings"
-            android:title="Profile Settings" />
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_dashboard"
+            android:title="Dashboard" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"

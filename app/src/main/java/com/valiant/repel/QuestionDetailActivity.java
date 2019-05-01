@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -37,6 +39,9 @@ implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_detail);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         // Get question key from intent
         questionKey = getIntent().getStringExtra(EXTRA_QUESTION_KEY);
         if (questionKey == null) {
@@ -45,7 +50,7 @@ implements View.OnClickListener {
 
         // Initialize Database
         databaseReference = FirebaseFirestore.getInstance();
-        questionReference = databaseReference.collection("questions").document(questionKey);
+        questionReference = databaseReference.collection("DashboardFragment").document(questionKey);
         answersReference = databaseReference.collection("answers").document(questionKey);
 
 

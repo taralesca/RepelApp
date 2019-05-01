@@ -11,7 +11,7 @@ public class RecentQuestionsFragment extends QuestionListFragment {
     @Override
     public Query getQuery(FirebaseFirestore databaseReference) {
         Query questionsQuery = databaseReference
-                .collection("questions")
+                .collection("DashboardFragment")
                 .orderBy("creationDate")
                 .limit(100);
         return  questionsQuery;

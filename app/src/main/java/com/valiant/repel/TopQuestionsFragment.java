@@ -11,7 +11,7 @@ public class TopQuestionsFragment extends QuestionListFragment {
     @Override
     public Query getQuery(FirebaseFirestore databaseReference) {
         Query questionsQuery = databaseReference
-                .collection("questions")
+                .collection("DashboardFragment")
                 .orderBy("starCount")
                 .limit(100);
         return  questionsQuery;

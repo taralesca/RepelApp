@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,14 +46,14 @@ public class MainUserActivity extends AppCompatActivity
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document != null) {
-                        username = document.getString("username");
-                        TextView usernameTextView = (TextView) findViewById(R.id.usernameView);
-                        usernameTextView.setText(username);
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document != null) {
+                            username = document.getString("username");
+                            TextView usernameTextView = (TextView) findViewById(R.id.usernameView);
+                            usernameTextView.setText(username);
+                        }
                     }
-                }
             }
         });
 
@@ -80,6 +81,13 @@ public class MainUserActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.container, new DashboardFragment());
+        ft.addToBackStack("tag_back");
+        ft.commit();
+
 
         FragmentTabAdapter tabAdapter;
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
@@ -117,9 +125,9 @@ public class MainUserActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -137,7 +145,6 @@ public class MainUserActivity extends AppCompatActivity
             FirebaseAuth.getInstance().signOut();
             toLoginActivity();
         }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

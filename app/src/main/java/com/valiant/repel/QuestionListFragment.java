@@ -56,7 +56,7 @@ public abstract class QuestionListFragment extends Fragment {
         // Set up FirebaseRecyclerAdapter with the Query
         /*
         Query questionsQuery = database
-                .collection("questions")
+                .collection("DashboardFragment")
                 .orderBy("creationDate");
         */
         final Query questionsQuery = getQuery(database);
@@ -74,7 +74,7 @@ public abstract class QuestionListFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull QuestionViewHolder viewHolder, int position, @NonNull Question model) {
-//                final FirebaseFirestore questionRef = database.collection("questions").get(position);
+//                final FirebaseFirestore questionRef = database.collection("DashboardFragment").get(position);
 
                 // Set click listener for the whole post view
                 final String postKey = getSnapshots().getSnapshot(position).getReference().getId();

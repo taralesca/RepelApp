@@ -24,9 +24,9 @@
         android:checkableBehavior="single"
         android:id="@+id/menu_bottom">
         <item
-            android:id="@+id/nav_users"
-            android:icon="@drawable/ic_users"
-            android:title="Users" />
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_dashboard"
+            android:title="Dashboard" />
         <item
             android:id="@+id/nav_postquestion"
             android:icon="@drawable/ic_menu_send"
