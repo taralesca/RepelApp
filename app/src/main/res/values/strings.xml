@@ -33,6 +33,9 @@
     <string name="auth_failed_toast">Authentication failed.</string>
     <string name="title_activity_question_detail">QuestionDetailActivity</string>
     <string name="font">\@font/MajorMonoDisplay-Regular</string>
+    <string name="prompt_question_content">intrebare intrebatoare</string>
+    <string name="action_question_submit">Submit</string>
+    <string name="prompt_question_anonimity">Post anonimously</string>
     <!--
     <string-array name="accounts">
         <item>Vasilica Farafrica</item>

@@ -27,7 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class MainAdminActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    String username;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
