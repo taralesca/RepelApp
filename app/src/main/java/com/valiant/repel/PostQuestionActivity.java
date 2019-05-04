@@ -99,6 +99,7 @@ public class PostQuestionActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 clearErrorMessages();
+                toMainAdminActivity();
                 attemptQuestionPost();
             }
         });
@@ -138,6 +139,9 @@ public class PostQuestionActivity extends AppCompatActivity
 
     private void toLoginActivity() {
         startActivity(new Intent(this, LoginActivity.class));
+    }
+    private void toMainAdminActivity() {
+        startActivity(new Intent(this, MainAdminActivity.class));
     }
 
     @Override
