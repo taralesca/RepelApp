@@ -29,9 +29,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:textStyle="bold"
-                android:textSize="30sp"/>
+                android:textSize="25sp"/>
         </LinearLayout>
 <!--
 
@@ -61,6 +61,7 @@
             android:layout_gravity="bottom"
             android:paddingLeft="@dimen/card_padding"
             android:paddingRight="@dimen/card_padding"
+            android:paddingBottom="@dimen/card_padding"
             >
             <TextView
                 android:id="@+id/questionDate"
