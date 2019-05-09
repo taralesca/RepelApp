@@ -1,42 +1,65 @@
 package com.valiant.repel;
 
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.view.View;
-
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.Button;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
-
-public class MainActivity extends AppCompatActivity
+public class MainAdminActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_admin);
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        FirebaseFirestore firebaseDatabase = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = firebaseDatabase
+                .collection("users")
+                .document(user.getUid());
+        documentReference
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document != null) {
+                                username = document.getString("username");
+                                TextView usernameTextView = (TextView) findViewById(R.id.usernameView);
+                                usernameTextView.setText(username);
+                            }
+                        }
+                    }
+                });
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+/*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +68,7 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+*/
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -53,20 +77,18 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FragmentTabAdapter adapter;
+        FragmentTabAdapter tabAdapter;
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        adapter = new FragmentTabAdapter(getSupportFragmentManager());
-        adapter.addFragment(new UsersFragment(), "Users");
-        adapter.addFragment(new GroupsFragment(), "Groups");
-        viewPager.setAdapter(adapter);
+        tabAdapter = new FragmentTabAdapter(getSupportFragmentManager());
+        tabAdapter.addFragment(new RecentQuestionsFragment(), "Recent");
+        tabAdapter.addFragment(new TopQuestionsFragment(), "Top");
+        viewPager.setAdapter(tabAdapter);
         tabLayout.setupWithViewPager(viewPager);
-
-
-
 
     }
 
@@ -99,38 +121,27 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
-
-
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    private void toLoginActivity() {
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+    private void toPostQuestionActivity() {
+        startActivity(new Intent(this, PostQuestionActivity.class));
+    }
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if(id == R.id.nav_profilesettings){
-            Intent intent = new Intent(MainActivity.this, UserProfile.class);
-            startActivity(intent);
+
+        if (id == R.id.nav_logout) {
+            FirebaseAuth.getInstance().signOut();
+            toLoginActivity();
+        } else if (id == R.id.nav_postquestion) {
+            toPostQuestionActivity();
         }
 
-        /*
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        */
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

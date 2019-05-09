@@ -1,22 +1,30 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <!--
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        -->
+
+        <!--<item name="android:background">@color/backgroundLight</item>-->
+        <item name="android:windowBackground">@color/colorBackgroundLight</item>
+        <!--<item name="android:colorBackground">@color/backgroundLight</item>-->
+
+        <item name="android:fontFamily"> @font/raleway</item>
+        <item name="android:textColor">@color/colorTextLight</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents" />
+    <style name="AppTheme.ActionBarText" parent="android:TextAppearance">
+        <item name="android:fontFamily">@font/fredoka_one</item>
+        <item name="android:textSize">23sp</item>
+    </style>
 
 </resources>

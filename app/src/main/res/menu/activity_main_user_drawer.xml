@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <!--
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/menu_top">
+        <item
+            android:id="@+id/nav_users"
+            android:icon="@drawable/ic_users"
+            android:title="Users" />
+        <item
+            android:id="@+id/nav_groups"
+            android:icon="@drawable/ic_groups"
+            android:title="Groups" />
+        <item
+            android:id="@+id/nav_conversations"
+            android:icon="@drawable/ic_conversations"
+            android:title="Saved Conversations" />
+    </group>
+    -->
+    <group
+        android:checkableBehavior="single"
+        android:id="@+id/menu_bottom">
+        <item
+            android:id="@+id/nav_profilesettings"
+            android:checkable="false"
+            android:enabled="true"
+            android:icon="@drawable/ic_profilesettings"
+            android:title="Profile"
+            android:visible="true" />
+        <item
+            android:id="@+id/nav_settings"
+            android:checkable="false"
+            android:checked="false"
+            android:icon="@drawable/ic_settings"
+            android:title="Settings" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_users"
+            android:title="Log Out" />
+    </group>
+
+
+</menu>
