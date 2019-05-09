@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
     <!--
@@ -25,10 +26,15 @@
         android:id="@+id/menu_bottom">
         <item
             android:id="@+id/nav_profilesettings"
+            android:checkable="false"
+            android:enabled="true"
             android:icon="@drawable/ic_profilesettings"
-            android:title="Profile Settings" />
+            android:title="Profile"
+            android:visible="true" />
         <item
             android:id="@+id/nav_settings"
+            android:checkable="false"
+            android:checked="false"
             android:icon="@drawable/ic_settings"
             android:title="Settings" />
         <item
