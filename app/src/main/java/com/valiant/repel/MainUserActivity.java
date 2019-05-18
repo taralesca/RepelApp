@@ -133,6 +133,12 @@ public class MainUserActivity extends AppCompatActivity
         int id = item.getItemId();
 
 
+
+        if(id == R.id.nav_profilesettings){
+            Intent intent = new Intent(MainUserActivity.this, UserProfile.class);
+            startActivity(intent);
+        }
+
         if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
             toLoginActivity();
