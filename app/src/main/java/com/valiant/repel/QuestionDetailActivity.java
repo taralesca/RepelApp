@@ -41,11 +41,13 @@ implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
     private TextView authorView;
     private TextView contentView;
     private TextView dateView;
+    private TextView starCountView;
 //    private EditText answerField;
 //    private Button answerButton;
 //    private RecyclerView answersRecycler;
 
     String username;
+    String postAuthor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +106,7 @@ implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
         authorView = findViewById(R.id.questionDetailAuthor);
         contentView = findViewById(R.id.questionDetailContent);
         dateView = findViewById(R.id.questionDetailDate);
+        starCountView = findViewById(R.id.questionDetailStarCount);
 //        answerField = findViewById(R.id.fieldAnswerText);
 //        answerButton = findViewById(R.id.buttonQuestionAnswer);
 //        answersRecycler = findViewById(R.id.recyclerQuestionAnswers);
@@ -129,9 +132,36 @@ implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
                 }
                 Question question = documentSnapshot.toObject(Question.class);
                 // [START_EXCLUDE]
-                authorView.setText(question.author);
+
+                // doareee II
+                if (question.anonimous) {
+                    postAuthor = "Anonimous";
+                    authorView.setText(postAuthor);
+                }
+                else {
+                    FirebaseFirestore firebaseDatabase = FirebaseFirestore.getInstance();
+                    DocumentReference documentReference = firebaseDatabase
+                            .collection("users")
+                            .document(question.author);
+                    documentReference
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document != null) {
+                                            postAuthor = document.getString("username");
+                                            authorView.setText(postAuthor);
+                                        }
+                                    }
+                                }
+                            });
+                }
+//                authorView.setText(question.author);
                 contentView.setText(question.content);
-                dateView.setText(question.creationDate.toString());
+                dateView.setText(question.creationDate.toDate().toString());
+                starCountView.setText(question.starCount.toString());
             }
         };
         questionReference.addSnapshotListener(questionEventListener);

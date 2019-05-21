@@ -16,16 +16,20 @@ public class Question {
     public Boolean anonimous;
     public Timestamp creationDate;
     public Timestamp modificationDate;
+    public Integer starCount;
+    public HashMap<String, Object> stars;
 
     public Question() {}
 
-    public Question(String uid, String author, String content, Boolean anonimous, Timestamp creationDate, Timestamp modificationDate) {
+    public Question(String uid, String author, String content, Boolean anonimous, Timestamp creationDate, Timestamp modificationDate, Integer starCount, HashMap<String, Object> stars) {
         this.uid = uid;
         this.author = author;
         this.content = content;
         this.anonimous = anonimous;
         this.creationDate = creationDate;
         this.modificationDate = modificationDate;
+        this.starCount = starCount;
+        this.stars = stars;
     }
 
     @Exclude
@@ -37,6 +41,8 @@ public class Question {
         result.put("anonimous", anonimous);
         result.put("creationDate", creationDate);
         result.put("modificationDate", modificationDate);
+        result.put("starCount", starCount);
+        result.put("stars", stars);
 
         return result;
     }
