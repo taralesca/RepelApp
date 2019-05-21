@@ -61,6 +61,8 @@ public class QuestionViewHolder extends RecyclerView.ViewHolder{
 //        authorView.setText(username);
         contentView.setText(question.content);
         dateView.setText(question.creationDate.toDate().toString());
-        starCountView.setText(question.starCount.toString());
+        if(question.starCount != null) {
+            starCountView.setText(question.starCount.toString());
+        }
     }
 }
