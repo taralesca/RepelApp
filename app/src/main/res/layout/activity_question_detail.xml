@@ -128,7 +128,17 @@
                             android:src="@drawable/ic_star"/>
                     </LinearLayout>
                 </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/answers_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:padding="5dp"
+                    android:scrollbars="vertical"
+                    tools:listitem="@layout/item_answer"
+                    />
             </LinearLayout>
+
         </ScrollView>
 
 
