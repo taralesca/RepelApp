@@ -1,18 +1,26 @@
 package com.valiant.repel.viewholders;
 
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.internal.CheckableImageButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.valiant.repel.R;
 import com.valiant.repel.models.Question;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class QuestionViewHolder extends RecyclerView.ViewHolder{
     String username;
@@ -64,5 +72,21 @@ public class QuestionViewHolder extends RecyclerView.ViewHolder{
         if(question.starCount != null) {
             starCountView.setText(question.starCount.toString());
         }
+        ImageView starImage = (ImageView) itemView.findViewById(R.id.star_button);
+        starImage.setOnClickListener((View v) -> {
+            question.starCount++;
+            starCountView.setText(question.starCount.toString());
+            FirebaseFirestore firebaseDatabase = FirebaseFirestore.getInstance();
+            Map<String, Object> mp = new HashMap<>();
+            mp.put("starCount", question.starCount);
+
+            if (question.uid != null) {
+                firebaseDatabase
+                        .collection("questions").document(question.uid)
+                        .update(mp);
+            } else {
+                Log.d("MESAJ", "PROBLEMA");
+            }
+        });
     }
 }

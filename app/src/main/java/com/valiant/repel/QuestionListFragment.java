@@ -78,6 +78,7 @@ public abstract class QuestionListFragment extends Fragment {
 
                 // Set click listener for the whole post view
                 final String postKey = getSnapshots().getSnapshot(position).getReference().getId();
+                model.uid = postKey;
                 System.out.println(postKey);
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
