@@ -16,10 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainAdminActivity"></activity>
+        <activity android:name=".MainAdminActivity" />
         <activity
             android:name=".QuestionDetailActivity"
             android:label="@string/title_activity_question_detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UserProfile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PostQuestionActivity"

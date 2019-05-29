@@ -2,34 +2,31 @@ package com.valiant.repel.models;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.Exclude;
-import com.google.firebase.firestore.IgnoreExtraProperties;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@IgnoreExtraProperties
-public class Question {
-
+public class Answer {
     public String uid;
     public String author;
     public String content;
     public Boolean anonimous;
     public Timestamp creationDate;
     public Timestamp modificationDate;
-    public Integer starCount;
-    public HashMap<String, Object> stars;
+    public Integer voteCount;
+    public HashMap<String, Object> votes;
 
-    public Question() {}
+    public Answer() {}
 
-    public Question(String uid, String author, String content, Boolean anonimous, Timestamp creationDate, Timestamp modificationDate, Integer starCount, HashMap<String, Object> stars) {
+    public Answer(String uid, String author, String content, Boolean anonimous, Timestamp creationDate, Timestamp modificationDate, Integer voteCount, HashMap<String, Object> votes) {
         this.uid = uid;
         this.author = author;
         this.content = content;
         this.anonimous = anonimous;
         this.creationDate = creationDate;
         this.modificationDate = modificationDate;
-        this.starCount = starCount;
-        this.stars = stars;
+        this.voteCount = voteCount;
+        this.votes = votes;
     }
 
     @Exclude
@@ -41,8 +38,8 @@ public class Question {
         result.put("anonimous", anonimous);
         result.put("creationDate", creationDate);
         result.put("modificationDate", modificationDate);
-        result.put("starCount", starCount);
-        result.put("stars", stars);
+        result.put("voteCount", voteCount);
+        result.put("votes", votes);
 
         return result;
     }

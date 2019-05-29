@@ -2,8 +2,10 @@ package com.valiant.repel;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,8 +13,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,7 +29,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.valiant.repel.models.Answer;
 import com.valiant.repel.models.Question;
+import com.valiant.repel.viewholders.AnswerViewHolder;
 
 import javax.annotation.Nullable;
 
@@ -41,11 +52,18 @@ implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
     private TextView authorView;
     private TextView contentView;
     private TextView dateView;
+    private TextView starCountView;
 //    private EditText answerField;
 //    private Button answerButton;
 //    private RecyclerView answersRecycler;
 
+    private FirestoreRecyclerAdapter<Answer, AnswerViewHolder> adapter;
+    private RecyclerView recycler;
+    private LinearLayoutManager manager;
+
+
     String username;
+    String postAuthor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +122,7 @@ implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
         authorView = findViewById(R.id.questionDetailAuthor);
         contentView = findViewById(R.id.questionDetailContent);
         dateView = findViewById(R.id.questionDetailDate);
+        starCountView = findViewById(R.id.questionDetailStarCount);
 //        answerField = findViewById(R.id.fieldAnswerText);
 //        answerButton = findViewById(R.id.buttonQuestionAnswer);
 //        answersRecycler = findViewById(R.id.recyclerQuestionAnswers);
@@ -111,6 +130,88 @@ implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
 //        answerButton.setOnClickListener(this);
 //        answersRecycler.setLayoutManager(new LinearLayoutManager(this));
 
+
+//        firebaseDatabase
+        recycler = findViewById(R.id.answers_view);
+        recycler.setHasFixedSize(true);
+
+        manager = new LinearLayoutManager(this);
+        manager.setReverseLayout(true);
+        manager.setStackFromEnd(true);
+
+        recycler.setLayoutManager(manager);
+
+        Query answersQuery = databaseReference
+                .collection("questions/" + questionKey + "/answers")
+                .orderBy("voteCount")
+                .limit(100);
+
+        FirestoreRecyclerOptions<Answer> options = new FirestoreRecyclerOptions.Builder<Answer>()
+                .setQuery(answersQuery, Answer.class)
+                .build();
+
+        adapter = new FirestoreRecyclerAdapter<Answer, AnswerViewHolder>(options) {
+            @Override
+            public AnswerViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+                LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+                return new AnswerViewHolder(inflater.inflate(R.layout.item_answer, viewGroup, false));
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull AnswerViewHolder viewHolder, int position, @NonNull Answer model) {
+//                final FirebaseFirestore answerRef = database.collection("answers").get(position);
+
+                // Set click listener for the whole post view
+                final String postKey = getSnapshots().getSnapshot(position).getReference().getId();
+                model.uid = postKey;
+                System.out.println("\t\t" + postKey);
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Launch PostDetailActivity
+//                        Intent intent = new Intent(getActivity(), AnswerDetailActivity.class);
+//                        intent.putExtra(AnswerDetailActivity.EXTRA_ANSWER_KEY, postKey);
+//                        startActivity(intent);
+                    }
+                });
+
+                /*// Determine if the current user has liked this post and set UI accordingly
+                if (model.stars.containsKey(getUid())) {
+                    viewHolder.starView.setImageResource(R.drawable.ic_toggle_star_24);
+                } else {
+                    viewHolder.starView.setImageResource(R.drawable.ic_toggle_star_outline_24);
+                }*/
+
+                // Bind Post to ViewHolder, setting OnClickListener for the star button
+                viewHolder.bindToPost(model, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View starView) {
+                        /*// Need to write to both places the post is stored
+                        DatabaseReference globalPostRef = database.child("posts").child(postRef.getKey());
+                        DatabaseReference userPostRef = database.child("user-posts").child(model.uid).child(postRef.getKey());
+
+                        // Run two transactions
+                        onStarClicked(globalPostRef);
+                        onStarClicked(userPostRef);*/
+                    }
+                });
+            }
+        };
+        recycler.setAdapter(adapter);
+
+        /*System.out.println(
+                questionKey + "\t\t" +
+                FirebaseFirestore.getInstance()
+                        .collection("questions/" + questionKey + "/answers")
+                        .limit(100)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                System.out.println(queryDocumentSnapshots.toObjects(Answer.class));
+                            }
+                        })
+                );*/
     }
 
     @Override
@@ -129,9 +230,36 @@ implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
                 }
                 Question question = documentSnapshot.toObject(Question.class);
                 // [START_EXCLUDE]
-                authorView.setText(question.author);
+
+                // doareee II
+                if (question.anonimous) {
+                    postAuthor = "Anonimous";
+                    authorView.setText(postAuthor);
+                }
+                else {
+                    FirebaseFirestore firebaseDatabase = FirebaseFirestore.getInstance();
+                    DocumentReference documentReference = firebaseDatabase
+                            .collection("users")
+                            .document(question.author);
+                    documentReference
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document != null) {
+                                            postAuthor = document.getString("username");
+                                            authorView.setText(postAuthor);
+                                        }
+                                    }
+                                }
+                            });
+                }
+//                authorView.setText(question.author);
                 contentView.setText(question.content);
-                dateView.setText(question.creationDate.toString());
+                dateView.setText(question.creationDate.toDate().toString());
+                starCountView.setText(question.starCount.toString());
             }
         };
         questionReference.addSnapshotListener(questionEventListener);
@@ -143,6 +271,10 @@ implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
         // Listen for comments
 //        adapter = new AnswerAdapter(this, answersReference);
 //        answersRecycler.setAdapter(adapter);
+        if (adapter != null) {
+            System.out.println("da start");
+            adapter.startListening();
+        }
     }
 
 //    @Override

@@ -7,10 +7,6 @@
     android:elevation="2dp"
     android:minHeight="100dp"
     android:layout_margin="5dp">
-    <!--style="@style/Widget.MaterialComponents.CardView"-->
-    <!--android:layout_marginLeft="@dimen/mtrl_card_spacing"-->
-    <!--android:layout_marginTop="@dimen/mtrl_card_spacing"-->
-    <!--android:layout_marginRight="@dimen/mtrl_card_spacing"-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +26,7 @@
                 android:padding="@dimen/card_padding"
                 >
                 <TextView
-                    android:id="@+id/questionContent"
+                    android:id="@+id/answerContent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -54,7 +50,7 @@
                 android:paddingRight="@dimen/card_padding"
                 >
                 <TextView
-                    android:id="@+id/questionAuthor"
+                    android:id="@+id/answerAuthor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -69,7 +65,7 @@
                 android:paddingBottom="@dimen/card_padding"
                 >
                 <TextView
-                    android:id="@+id/questionDate"
+                    android:id="@+id/answerDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="italic"
@@ -90,7 +86,7 @@
                 android:orientation="vertical"
                 >
                 <TextView
-                    android:id="@+id/questionStarCount"
+                    android:id="@+id/answerVoteCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -99,7 +95,7 @@
                     android:textSize="25sp"/>
             </LinearLayout>
             <ImageView
-                android:id="@+id/star_button"
+                android:id="@+id/vote_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_star"/>

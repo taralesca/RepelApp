@@ -14,31 +14,31 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.valiant.repel.R;
-import com.valiant.repel.models.Question;
+import com.valiant.repel.models.Answer;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class QuestionViewHolder extends RecyclerView.ViewHolder{
+public class AnswerViewHolder extends RecyclerView.ViewHolder{
     String username;
 
     public TextView authorView;
     public TextView contentView;
     public TextView dateView;
-    public TextView starCountView;
+    public TextView voteCountView;
 
-    public QuestionViewHolder(View itemView) {
+    public AnswerViewHolder(View itemView) {
         super(itemView);
 
-        authorView = itemView.findViewById(R.id.questionAuthor);
-        contentView = itemView.findViewById(R.id.questionContent);
-        dateView = itemView.findViewById(R.id.questionDate);
-        starCountView = itemView.findViewById(R.id.questionStarCount);
+        authorView = itemView.findViewById(R.id.answerAuthor);
+        contentView = itemView.findViewById(R.id.answerContent);
+        dateView = itemView.findViewById(R.id.answerDate);
+        voteCountView = itemView.findViewById(R.id.answerVoteCount);
     }
 
-    public void bindToPost(Question question, View.OnClickListener starClickListener) {
+    public void bindToPost(Answer answer, View.OnClickListener voteClickListener) {
         // doareee
-        if (question.anonimous) {
+        if (answer.anonimous) {
             username = "Anonimous";
             authorView.setText(username);
         }
@@ -46,7 +46,7 @@ public class QuestionViewHolder extends RecyclerView.ViewHolder{
             FirebaseFirestore firebaseDatabase = FirebaseFirestore.getInstance();
             DocumentReference documentReference = firebaseDatabase
                     .collection("users")
-                    .document(question.author);
+                    .document(answer.author);
             documentReference
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -62,24 +62,24 @@ public class QuestionViewHolder extends RecyclerView.ViewHolder{
                         }
                     });
         }
-//        System.out.println(question.starCount);
+//        System.out.println(answer.voteCount);
 //        authorView.setText(username);
-        contentView.setText(question.content);
-        dateView.setText(question.creationDate.toDate().toString());
-        if(question.starCount != null) {
-            starCountView.setText(question.starCount.toString());
+        contentView.setText(answer.content);
+        dateView.setText(answer.creationDate.toDate().toString());
+        if(answer.voteCount != null) {
+            voteCountView.setText(answer.voteCount.toString());
         }
-        ImageView starImage = (ImageView) itemView.findViewById(R.id.star_button);
-        starImage.setOnClickListener((View v) -> {
-            question.starCount++;
-            starCountView.setText(question.starCount.toString());
+        ImageView voteImage = (ImageView) itemView.findViewById(R.id.vote_button);
+        voteImage.setOnClickListener((View v) -> {
+            answer.voteCount++;
+            voteCountView.setText(answer.voteCount.toString());
             FirebaseFirestore firebaseDatabase = FirebaseFirestore.getInstance();
             Map<String, Object> mp = new HashMap<>();
-            mp.put("starCount", question.starCount);
+            mp.put("voteCount", answer.voteCount);
 
-            if (question.uid != null) {
+            if (answer.uid != null) {
                 firebaseDatabase
-                        .collection("questions").document(question.uid)
+                        .collection("answers").document(answer.uid)
                         .update(mp);
             } else {
                 Log.d("MESAJ", "PROBLEMA");
@@ -87,3 +87,5 @@ public class QuestionViewHolder extends RecyclerView.ViewHolder{
         });
     }
 }
+
+

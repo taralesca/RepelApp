@@ -62,7 +62,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d("MESAJ", "KARAMBA");
                             FirebaseFirestore firebaseDatabase = FirebaseFirestore.getInstance();
                             final FirebaseUser user = firebaseAuth.getCurrentUser();
                             DocumentReference documentReference = firebaseDatabase
@@ -111,7 +110,9 @@ public class LoginActivity extends AppCompatActivity {
     private void attemptLogin() {
         final String email = emailView.getText().toString();
         final String password = passwordView.getText().toString();
-        signIn(email, password);
+        if(!email.equals("") && !password.equals("")) {
+            signIn(email, password);
+        }
     }
 
     private Toast authFailedToast() {
