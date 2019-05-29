@@ -149,6 +149,7 @@ implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
         FirestoreRecyclerOptions<Answer> options = new FirestoreRecyclerOptions.Builder<Answer>()
                 .setQuery(answersQuery, Answer.class)
                 .build();
+
         adapter = new FirestoreRecyclerAdapter<Answer, AnswerViewHolder>(options) {
             @Override
             public AnswerViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
