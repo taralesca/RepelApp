@@ -51,6 +51,7 @@ public class MainUserActivity extends AppCompatActivity
                         username = document.getString("username");
                         TextView usernameTextView = (TextView) findViewById(R.id.usernameView);
                         usernameTextView.setText(username);
+                        ((TextView) findViewById(R.id.mailView)).setText(user.getEmail());
                     }
                 }
             }

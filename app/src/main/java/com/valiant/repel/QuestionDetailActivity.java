@@ -269,6 +269,8 @@ implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
                 contentView.setText(question.content);
                 dateView.setText(question.creationDate.toDate().toString());
                 starCountView.setText(question.starCount.toString());
+
+                setTitle(question.content);
             }
         };
         questionReference.addSnapshotListener(questionEventListener);

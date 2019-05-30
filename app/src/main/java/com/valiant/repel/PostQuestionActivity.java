@@ -96,6 +96,8 @@ public class PostQuestionActivity extends AppCompatActivity
 
         getUIElements();
 
+        setTitle("Post question");
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

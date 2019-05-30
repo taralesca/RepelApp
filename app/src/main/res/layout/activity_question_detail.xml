@@ -48,7 +48,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@color/colorBackgroundLighter"
+                    android:padding="@dimen/card_padding"
+                    >
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -168,10 +171,10 @@
             android:id="@+id/floating_action_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_margin="16dp"
-            android:background="?attr/colorPrimaryDark"
-            app:backgroundTint="?attr/colorPrimaryDark"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:background="@color/colorAccent"
+            app:backgroundTint="@color/colorAccent"
             android:foreground="@drawable/ic_plus_24"
             app:srcCompat="@drawable/ic_plus_24" />
 
