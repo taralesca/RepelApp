@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "205979712684-mfvp7nl3e3990elbk6o2q7v8d0aqcssc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.valiant.repel",
+            "certificate_hash": "2b7a95694bb939b06b2f03c21d310535aa7e5297"
+          }
+        },
+        {
           "client_id": "205979712684-semn48o59biiufdik8epjcrtjskstar6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

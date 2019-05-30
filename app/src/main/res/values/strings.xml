@@ -23,6 +23,10 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <!-- Strings related to Notification -->
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+
 
     <string name="terms_conditions">I agree to the Terms and Conditions.</string>
     <string name="prompt_username">Userame</string>
