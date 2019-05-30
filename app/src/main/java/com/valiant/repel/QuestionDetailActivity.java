@@ -166,6 +166,7 @@ implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
                 final String postKey = getSnapshots().getSnapshot(position).getReference().getId();
                 model.uid = postKey;
                 System.out.println("\t\t" + postKey);
+                model.questionUID = questionKey;
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
