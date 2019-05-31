@@ -15,10 +15,11 @@ public class Answer {
     public Timestamp modificationDate;
     public Integer voteCount;
     public HashMap<String, Object> votes;
+    public String questionUID;
 
     public Answer() {}
 
-    public Answer(String uid, String author, String content, Boolean anonimous, Timestamp creationDate, Timestamp modificationDate, Integer voteCount, HashMap<String, Object> votes) {
+    public Answer(String uid, String author, String content, Boolean anonimous, Timestamp creationDate, Timestamp modificationDate, Integer voteCount, HashMap<String, Object> votes, String questionUID) {
         this.uid = uid;
         this.author = author;
         this.content = content;
@@ -27,6 +28,7 @@ public class Answer {
         this.modificationDate = modificationDate;
         this.voteCount = voteCount;
         this.votes = votes;
+        this.questionUID = questionUID;
     }
 
     @Exclude

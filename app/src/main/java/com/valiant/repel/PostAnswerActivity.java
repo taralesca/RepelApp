@@ -2,8 +2,12 @@ package com.valiant.repel;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,23 +22,31 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firestore.v1.WriteResult;
 
-public class MainAdminActivity extends AppCompatActivity
+import java.util.HashMap;
+
+public class PostAnswerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private String username;
 
+    private TextInputEditText contentView;
+    private CheckBox anonimityBox;
+    private Button submitButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_admin);
-        FirebaseMessaging.getInstance().subscribeToTopic("pushNotifications");
+        setContentView(R.layout.activity_post_answer);
+
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         FirebaseFirestore firebaseDatabase = FirebaseFirestore.getInstance();
@@ -52,7 +64,6 @@ public class MainAdminActivity extends AppCompatActivity
                                 username = document.getString("username");
                                 TextView usernameTextView = (TextView) findViewById(R.id.usernameView);
                                 usernameTextView.setText(username);
-                                ((TextView) findViewById(R.id.mailView)).setText(user.getEmail());
                             }
                         }
                     }
@@ -83,15 +94,18 @@ public class MainAdminActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FragmentTabAdapter tabAdapter;
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        tabAdapter = new FragmentTabAdapter(getSupportFragmentManager());
-        tabAdapter.addFragment(new RecentQuestionsFragment(), "Recent");
-        tabAdapter.addFragment(new TopQuestionsFragment(), "Top");
-        viewPager.setAdapter(tabAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+        getUIElements();
 
+        setTitle("Post answer");
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearErrorMessages();
+                toQuestionDetailActivity();
+                attemptQuestionPost();
+            }
+        });
     }
 
     @Override
@@ -129,9 +143,13 @@ public class MainAdminActivity extends AppCompatActivity
     private void toLoginActivity() {
         startActivity(new Intent(this, LoginActivity.class));
     }
-    private void toPostQuestionActivity() {
-        startActivity(new Intent(this, PostQuestionActivity.class));
+    private void toQuestionDetailActivity() {
+        String questionKey = getIntent().getStringExtra("EXTRA_KEY");
+        Intent intent = new Intent(this, QuestionDetailActivity.class);
+        intent.putExtra("question_key", questionKey);
+        startActivity(intent);
     }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -140,13 +158,51 @@ public class MainAdminActivity extends AppCompatActivity
         if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
             toLoginActivity();
-        } else if (id == R.id.nav_postquestion) {
-            toPostQuestionActivity();
         }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void getUIElements() {
+        contentView = findViewById(R.id.question_content);
+        anonimityBox = findViewById(R.id.question_anonimity_box);
+        submitButton = findViewById(R.id.question_submit);
+    }
+
+    private void clearErrorMessages() {
+        contentView.setError(null);
+        anonimityBox.setError(null);
+        submitButton.setError(null);
+    }
+
+    private void attemptQuestionPost() {
+
+        String content = contentView.getText().toString();
+        Boolean anonimity = anonimityBox.isChecked();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String authorUid = firebaseAuth.getCurrentUser().getUid();
+
+
+        createQuestion(content, anonimity, authorUid);
+    }
+
+    private void createQuestion(String content, Boolean anonimity, String authorUid) {
+        Timestamp ts = Timestamp.now();
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("author", authorUid);
+        data.put("content", content);
+        data.put("anonimous", anonimity);
+        data.put("creationDate", ts);
+        data.put("modificationDate", ts);
+        data.put("voteCount", 0);
+        data.put("stars", new HashMap<>());
+
+        FirebaseFirestore firebaseDatabase = FirebaseFirestore.getInstance();
+        String questionKey = getIntent().getStringExtra("EXTRA_KEY");
+        firebaseDatabase.collection("questions/" + questionKey + "/answers" ).add(data);
+        System.out.println("WORKING" + questionKey);
     }
 }

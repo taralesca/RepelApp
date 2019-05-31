@@ -79,7 +79,7 @@ public class AnswerViewHolder extends RecyclerView.ViewHolder{
 
             if (answer.uid != null) {
                 firebaseDatabase
-                        .collection("answers").document(answer.uid)
+                        .collection("questions/" + answer.questionUID + "/answers").document(answer.uid)
                         .update(mp);
             } else {
                 Log.d("MESAJ", "PROBLEMA");

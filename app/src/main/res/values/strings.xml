@@ -23,6 +23,10 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <!-- Strings related to Notification -->
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+
 
     <string name="terms_conditions">I agree to the Terms and Conditions.</string>
     <string name="prompt_username">Userame</string>
@@ -33,10 +37,11 @@
     <string name="auth_failed_toast">Authentication failed.</string>
     <string name="title_activity_question_detail">QuestionDetailActivity</string>
     <string name="font">\@font/MajorMonoDisplay-Regular</string>
-    <string name="prompt_question_content">intrebare intrebatoare</string>
+    <string name="prompt_question_content">Type question here</string>
     <string name="action_question_submit">Submit</string>
     <string name="prompt_question_anonimity">Post anonimously</string>
     <string name="title_activity_user_profile">UserProfile</string>
+    <string name="prompt_answer_content">Type answer here</string>
     <!--
     <string-array name="accounts">
         <item>Vasilica Farafrica</item>

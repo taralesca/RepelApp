@@ -21,6 +21,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -165,6 +166,7 @@ implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
                 final String postKey = getSnapshots().getSnapshot(position).getReference().getId();
                 model.uid = postKey;
                 System.out.println("\t\t" + postKey);
+                model.questionUID = questionKey;
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -212,6 +214,14 @@ implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
                             }
                         })
                 );*/
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toPostAnswerActivity();
+            }
+        });
     }
 
     @Override
@@ -260,6 +270,8 @@ implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
                 contentView.setText(question.content);
                 dateView.setText(question.creationDate.toDate().toString());
                 starCountView.setText(question.starCount.toString());
+
+                setTitle(question.content);
             }
         };
         questionReference.addSnapshotListener(questionEventListener);
@@ -301,7 +313,11 @@ implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
     private void toLoginActivity() {
         startActivity(new Intent(this, LoginActivity.class));
     }
-
+    private void toPostAnswerActivity() {
+        Intent intent = new Intent(this, PostAnswerActivity.class);
+        intent.putExtra("EXTRA_KEY", questionKey);
+        startActivity(intent);
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 

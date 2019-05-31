@@ -13,7 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".PostQuestionActivity">
+        tools:context=".PostAnswerActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_question_content"
+                    android:hint="@string/prompt_answer_content"
                     tools:targetApi="o">
 
                     <com.google.android.material.textfield.TextInputEditText
