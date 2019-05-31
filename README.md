@@ -5,7 +5,8 @@ Social Android application, current version is unstable/under construction.
 
 ## Project details
 * [User Stories](https://github.com/valianttech/RepelApp/projects/1)
-* [Code documentation](https://github.com/valianttech/RepelApp/wiki)
+* [UML Diagrams](https://drive.google.com/open?id=1fnJ5Hldp1tSrCL7GEh3DoCEsbzbGQcY4)
+* [Initial class diagram](https://drive.google.com/open?id=1KaBvHHrVWhs_B6HLqITifOHcLi2WFRpS)
 * [Development status](https://github.com/valianttech/RepelApp/projects/3)
 
 ## Development standards
